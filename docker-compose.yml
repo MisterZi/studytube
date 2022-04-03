@@ -1,0 +1,43 @@
+version: '3.4'
+
+services:
+  app:
+    tty: true
+    stdin_open: true
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: studytube:local
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./:/studytube
+    command: bundle exec rails server -b 0.0.0.0
+
+  test:
+    image: studytube:local
+    command: bundle exec rspec --format documentation
+    environment:
+      RAILS_ENV: test
+    env_file:
+      - .env
+      - .env.test
+    depends_on:
+      - db
+    volumes:
+      - ./:/studytube
+
+  db:
+    image: postgres:12-alpine
+    environment:
+      POSTGRES_USER: studytube
+      POSTGRES_PASSWORD: studytube
+    volumes:
+      - postgres:/var/lib/postgresql/data
+
+volumes:
+  postgres:

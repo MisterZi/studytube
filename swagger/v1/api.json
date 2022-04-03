@@ -1,0 +1,355 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "API V1",
+    "version": "v1"
+  },
+  "servers": [
+    {
+      "url": "/api/v1"
+    }
+  ],
+  "basePath": "/api/v1",
+  "paths": {
+    "/stocks": {
+      "get": {
+        "summary": "Get stocks list",
+        "tags": [
+          "Stocks"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "required": [
+                          "id",
+                          "name",
+                          "bearer"
+                        ],
+                        "properties": {
+                          "id": {
+                            "type": "integer",
+                            "description": "Stock id"
+                          },
+                          "name": {
+                            "type": "string",
+                            "description": "Stock name"
+                          },
+                          "bearer": {
+                            "type": "object",
+                            "required": [
+                              "id",
+                              "name"
+                            ],
+                            "properties": {
+                              "id": {
+                                "type": "integer",
+                                "description": "Bearer id"
+                              },
+                              "name": {
+                                "type": "string",
+                                "description": "Bearer name"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Create stock",
+        "tags": [
+          "Stocks"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "name",
+                        "bearer"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Stock id"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Stock name"
+                        },
+                        "bearer": {
+                          "type": "object",
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Bearer id"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Bearer name"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "error": {
+                    "type": "string",
+                    "description": "Error message"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "stock"
+                ],
+                "properties": {
+                  "stock": {
+                    "type": "object",
+                    "required": [
+                      "name",
+                      "bearer_name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Stock name"
+                      },
+                      "bearer_name": {
+                        "type": "string",
+                        "description": "Bearer name"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/stocks/{stock_id}": {
+      "parameters": [
+        {
+          "name": "stock_id",
+          "in": "path",
+          "required": true,
+          "schema": {
+            "type": "integer"
+          }
+        }
+      ],
+      "patch": {
+        "summary": "Update stock",
+        "tags": [
+          "Stocks"
+        ],
+        "parameters": [
+
+        ],
+        "responses": {
+          "200": {
+            "description": "Updated",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "data"
+                  ],
+                  "data": {
+                    "type": "object",
+                    "properties": {
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "name",
+                        "bearer"
+                      ],
+                      "properties": {
+                        "id": {
+                          "type": "integer",
+                          "description": "Stock id"
+                        },
+                        "name": {
+                          "type": "string",
+                          "description": "Stock name"
+                        },
+                        "bearer": {
+                          "type": "object",
+                          "required": [
+                            "id",
+                            "name"
+                          ],
+                          "properties": {
+                            "id": {
+                              "type": "integer",
+                              "description": "Bearer id"
+                            },
+                            "name": {
+                              "type": "string",
+                              "description": "Bearer name"
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "error": {
+                    "type": "string",
+                    "description": "Error message"
+                  }
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Unprocessable entity",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "error": {
+                    "type": "string",
+                    "description": "Error message"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "stock"
+                ],
+                "properties": {
+                  "stock": {
+                    "type": "object",
+                    "required": [
+                      "name"
+                    ],
+                    "properties": {
+                      "name": {
+                        "type": "string",
+                        "description": "Stock name"
+                      },
+                      "bearer_name": {
+                        "type": "string",
+                        "description": "Bearer name"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Delete stock",
+        "tags": [
+          "Stocks"
+        ],
+        "responses": {
+          "204": {
+            "description": "Deleted"
+          },
+          "404": {
+            "description": "Not found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "required": [
+                    "error"
+                  ],
+                  "error": {
+                    "type": "string",
+                    "description": "Error message"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
